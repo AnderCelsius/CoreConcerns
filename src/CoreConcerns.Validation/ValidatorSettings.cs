@@ -3,11 +3,20 @@ using System.Text.RegularExpressions;
 
 namespace CoreConcerns.Validation;
 
+/// <summary>
+/// Provides extension methods for common validation rules.
+/// </summary>
 public static class ValidatorSettings
 {
+
+    #region Fields
+
     // Default regex pattern for phone number validation
     private const string DefaultPhoneNumberPattern = @"^\+?[1-9]\d{1,14}$"; // E.164 format as an example
 
+    #endregion
+
+    #region ValidationRules
 
     /// <summary>
     /// Validates that a string is a valid human name.
@@ -295,10 +304,10 @@ public static class ValidatorSettings
         this IRuleBuilder<T, IEnumerable<TElement>> ruleBuilder)
     {
         return ruleBuilder.Must(list =>
-        {
-            var enumerable = list as TElement[] ?? list.ToArray();
-            return list == null || enumerable.Distinct().Count() == enumerable.Count();
-        })
+            {
+                var enumerable = list as TElement[] ?? list.ToArray();
+                return list == null || enumerable.Distinct().Count() == enumerable.Count();
+            })
             .WithMessage("All elements in the list must be unique.");
     }
 
@@ -334,12 +343,12 @@ public static class ValidatorSettings
         this IRuleBuilder<T, DateTime> ruleBuilder, int minAge, int maxAge)
     {
         return ruleBuilder.Must(birthDate =>
-        {
-            var today = DateTime.Today;
-            var age = today.Year - birthDate.Year;
-            if (birthDate.Date > today.AddYears(-age)) age--;
-            return age >= minAge && age <= maxAge;
-        })
+            {
+                var today = DateTime.Today;
+                var age = today.Year - birthDate.Year;
+                if (birthDate.Date > today.AddYears(-age)) age--;
+                return age >= minAge && age <= maxAge;
+            })
             .WithMessage($"Age must be between {minAge} and {maxAge} years.");
     }
 
@@ -403,8 +412,8 @@ public static class ValidatorSettings
         (double LongitudeMin, double LongitudeMax) longitudeRange)
     {
         return ruleBuilder.Must(coords =>
-            coords.Latitude >= latitudeRange.LatitudeMin && coords.Latitude <= latitudeRange.LatitudeMax &&
-            coords.Longitude >= longitudeRange.LongitudeMin && coords.Longitude <= longitudeRange.LongitudeMax)
+                coords.Latitude >= latitudeRange.LatitudeMin && coords.Latitude <= latitudeRange.LatitudeMax &&
+                coords.Longitude >= longitudeRange.LongitudeMin && coords.Longitude <= longitudeRange.LongitudeMax)
             .WithMessage($"Invalid latitude or longitude values.");
     }
 
@@ -421,6 +430,10 @@ public static class ValidatorSettings
             .WithMessage("Invalid URL slug format.");
     }
 
+    #endregion
+
+    #region Private Methods
+
     private static string GetCurrencyFormatRegexPattern(string currencyFormat)
     {
         // Escape special characters in the currency format
@@ -428,14 +441,13 @@ public static class ValidatorSettings
 
         // Replace placeholders for currency symbol, thousands separator, and decimal separator
         escapedFormat = escapedFormat
-            .Replace(@"\$\#", @"\$\d{1,3}")     // Currency symbol (#)
-            .Replace(@",", @"\,")               // Thousands separator
-            .Replace(@"\.", @"\.");             // Decimal separator
+            .Replace(@"\$\#", @"\$\d{1,3}") // Currency symbol (#)
+            .Replace(@",", @"\,") // Thousands separator
+            .Replace(@"\.", @"\."); // Decimal separator
 
         // Add anchors to ensure the pattern matches the entire string
         return $"^{escapedFormat}$";
     }
-
 
     private static bool HasValidDecimalScale(decimal value, int scale)
     {
@@ -572,4 +584,6 @@ public static class ValidatorSettings
 
         return true;
     }
+
+    #endregion
 }
