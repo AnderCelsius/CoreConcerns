@@ -1,57 +1,24 @@
-# CoreConcerns.Caching
+# CoreConcerns.ExceptionHandling
 
-This library provides caching solutions as part of the CoreConcerns suite, supporting both in-memory and distributed Redis caching.
+CoreConcerns.ExceptionHandling is a dedicated library for handling exceptions in a structured and consistent manner as part of the CoreConcerns suite.
 
 ## Features
 
-- Easy setup and integration with .NET applications.
-- Support for in-memory caching suitable for single-instance applications.
-- Support for Redis caching suitable for distributed applications.
+- Centralized exception management.
+- Customizable exception handling strategies.
+- Integration with logging and alerting tools.
 
 ## Getting Started
 
 ### Installation
 
 ```shell
-dotnet add package CoreConcerns.Caching
-```
-
-### Configuration
-
-#### In-Memory Caching
-
-Register in-memory caching in `Startup.cs` or `Program.cs`:
-
-```csharp
-services.AddInMemoryCacheProvider();
-```
-
-#### Redis Caching
-
-For Redis caching, provide a connection string during registration:
-
-```csharp
-services.AddRedisCacheProvider("your_redis_connection_string");
+dotnet add package CoreConcerns.ExceptionHandling
 ```
 
 ### Usage
 
-Inject `ICacheProvider` into your services to utilize the caching features:
+Implement the exception handling strategies in your application's configuration and use them within your services or middleware to manage exceptions effectively.
 
-```csharp
-public class MyService
-{
-    private readonly ICacheProvider _cacheProvider;
-
-    public MyService(ICacheProvider cacheProvider)
-    {
-        _cacheProvider = cacheProvider;
-    }
-
-    // Example method demonstrating caching usage.
-    public async Task MyMethod()
-    {
-        // Your caching logic here
-    }
-}
+Detailed usage instructions, including how to define global exception handlers and integrate with other components of the CoreConcerns suite, will be provided in the documentation.
 ```
