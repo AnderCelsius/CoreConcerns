@@ -6,7 +6,7 @@ namespace CoreConcerns.Caching;
 public class InMemoryCacheProvider : ICacheProvider
 {
     private readonly IMemoryCache _memoryCache;
-    private readonly ConcurrentDictionary<string?, byte> _keys = new();
+    private readonly ConcurrentDictionary<string, byte> _keys = new();
 
     public InMemoryCacheProvider(IMemoryCache memoryCache)
     {
