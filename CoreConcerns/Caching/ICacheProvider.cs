@@ -8,7 +8,7 @@ public interface ICacheProvider
     /// <typeparam name="T">The type of the item in the cache.</typeparam>
     /// <param name="key">The unique key corresponding to the item.</param>
     /// <returns>The cached item if found; otherwise, the default value for type <typeparamref name="T"/>.</returns>
-    Task<T> GetAsync<T>(string? key);
+    Task<T?> GetAsync<T>(string key) where T : class;
 
     /// <summary>
     /// Asynchronously adds an item of type <typeparamref name="T"/> to the cache with the specified key, or updates the value if the key already exists.

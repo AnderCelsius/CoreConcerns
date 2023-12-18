@@ -14,12 +14,12 @@ public class InMemoryCacheProvider : ICacheProvider
             "An instance of IMemoryCache must be provided.");
     }
 
-    public Task<T> GetAsync<T>(string? key)
+    public Task<T?> GetAsync<T>(string key) where T : class
     {
         if (key == null) throw new ArgumentNullException(nameof(key), "Cache key cannot be null.");
 
         // Attempt to get the item from the cache. If the key doesn't exist, default(T) is returned.
-        _memoryCache.TryGetValue(key, out T cacheEntry);
+        _memoryCache.TryGetValue(key, out T? cacheEntry);
         return Task.FromResult(cacheEntry);
     }
 
