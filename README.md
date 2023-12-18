@@ -1,63 +1,91 @@
 # CoreConcerns
 
-CoreConcerns is a .NET library designed to provide a simplified approach to common cross-cutting concerns such as caching, logging, and validation.
+CoreConcerns is a suite of .NET class libraries designed to provide simplified and robust approaches to common cross-cutting concerns: caching, logging, and validation.
 
 ## Features
 
-- In-memory caching with easy setup and integration.
-- Extendable caching strategies.
-- Simple and intuitive API.
+- In-memory and Redis caching with easy setup and flexible integration.
+- Structured logging for easy diagnostics and troubleshooting.
+- Fluent validation for business rules and data integrity.
+
+## Projects
+
+The CoreConcerns suite consists of the following projects:
+
+- **CoreConcerns.Caching**: For caching implementations, including in-memory and Redis.
+- **CoreConcerns.Logging**: For structured and configurable logging.
+- **CoreConcerns.Validation**: For validation of business objects and data.
 
 ## Getting Started
 
 ### Installation
 
-To install CoreConcerns, use the following NuGet command:
+You can install each component of CoreConcerns separately via NuGet:
 
 ```shell
-dotnet add package CoreConcerns
+# For caching
+dotnet add package CoreConcerns.Caching
+
+# For logging
+dotnet add package CoreConcerns.Logging
+
+# For validation
+dotnet add package CoreConcerns.Validation
+```
+
+Refer to the README.md of each project for detailed usage instructions.
+
+## Contributing
+We welcome contributions to any part of the CoreConcerns suite. Please read our contributing guidelines in each project's repository before submitting pull requests.
+
+
+
+
+# CoreConcerns.Logging
+
+The CoreConcerns.Logging library provides structured and configurable logging mechanisms as part of the CoreConcerns suite.
+
+## Features
+
+- Structured logging that is easy to read and query.
+- Integration with various logging frameworks.
+- Customizable log levels and output targets.
+
+## Getting Started
+
+### Installation
+
+```shell
+dotnet add package CoreConcerns.Logging
 ```
 
 ### Usage
-Setting up Caching
 
-In your `Startup.cs` or `Program.cs`:
+Set up logging in your application's configuration and inject the logging provider into your services.
 
-#### In-Memory Caching
+More detailed usage instructions and examples will be provided in the documentation.
 
-To use in-memory caching, register it as follows:
 
-```csharp
-services.AddInMemoryCacheProvider();
+# CoreConcerns.Validation
+
+CoreConcerns.Validation is a library for validating business objects and ensuring data integrity as part of the CoreConcerns suite.
+
+## Features
+
+- Fluent validation rules for easy readability and maintenance.
+- Integration with .NET data annotations.
+- Support for complex validation scenarios.
+
+## Getting Started
+
+### Installation
+
+```shell
+dotnet add package CoreConcerns.Validation
 ```
 
-#### Redis Caching
+### Usage
 
-To use Redis caching, you must provide a connection string and register it as follows:
+Define validation rules for your business objects and use the validation provider to enforce these rules in your application.
 
-```csharp
-services.AddRedisCacheProvider("your_redis_connection_string");
-```
-
-Using Caching in Your Application
-
-Inject `ICacheProvider` into your services or controllers:
-```csharp
-public class MyService
-{
-    private readonly ICacheProvider _cacheProvider;
-
-    public MyService(ICacheProvider cacheProvider)
-    {
-        _cacheProvider = cacheProvider;
-    }
-
-    public async Task MyMethod()
-    {
-        // Use _cacheProvider methods here
-    }
-}
-```
-
-## Contributing
-We welcome contributions! Please read our contributing guidelines before submitting pull requests.
+Examples and more comprehensive instructions will be provided in the documentation.
