@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CoreConcerns\CoreConcerns.csproj" />
+    <ProjectReference Include="..\..\src\CoreConcerns\CoreConcerns.Caching.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using CoreConcerns.Caching;
+﻿using CoreConcerns.Caching.Interfaces;
 
 namespace CoreConcerns.Example.Services;
 

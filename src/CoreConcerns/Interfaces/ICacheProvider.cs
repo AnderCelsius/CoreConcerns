@@ -1,4 +1,4 @@
-﻿namespace CoreConcerns.Caching;
+﻿namespace CoreConcerns.Caching.Interfaces;
 
 public interface ICacheProvider
 {

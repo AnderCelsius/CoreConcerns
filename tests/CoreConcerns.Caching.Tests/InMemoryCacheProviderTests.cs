@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using CoreConcerns.Caching.Implementations;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using System.Collections.Concurrent;
 

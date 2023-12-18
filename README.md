@@ -23,11 +23,20 @@ Setting up Caching
 
 In your `Startup.cs` or `Program.cs`:
 
+#### In-Memory Caching
+
+To use in-memory caching, register it as follows:
+
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddInMemoryCacheProvider();
-}
+services.AddInMemoryCacheProvider();
+```
+
+#### Redis Caching
+
+To use Redis caching, you must provide a connection string and register it as follows:
+
+```csharp
+services.AddRedisCacheProvider("your_redis_connection_string");
 ```
 
 Using Caching in Your Application

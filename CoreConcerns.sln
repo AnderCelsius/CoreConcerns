@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1FA0F119
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreConcerns.Caching.Tests", "tests\CoreConcerns.Caching.Tests\CoreConcerns.Caching.Tests.csproj", "{7E3EC9CD-31F3-49D6-8C35-65944A42D5DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreConcerns", "src\CoreConcerns\CoreConcerns.csproj", "{F6735B49-0498-43D4-B082-95744D092A46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreConcerns.Caching", "src\CoreConcerns\CoreConcerns.Caching.csproj", "{F6735B49-0498-43D4-B082-95744D092A46}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreConcerns.Example", "src\CoreConcerns.Example\CoreConcerns.Example.csproj", "{80351549-E580-403E-9CAC-80CCC40BD427}"
 EndProject

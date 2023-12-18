@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using CoreConcerns.Caching.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Concurrent;
 
-namespace CoreConcerns.Caching;
+namespace CoreConcerns.Caching.Implementations;
 
 public class InMemoryCacheProvider : ICacheProvider
 {

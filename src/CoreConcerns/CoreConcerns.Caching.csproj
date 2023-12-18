@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>CoreConcerns.Caching</AssemblyName>
+    <RootNamespace>CoreConcerns.Caching</RootNamespace>
+    <PackageId>CoreConcerns.Caching</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Obinna Asiegbulam</Authors>
+    <Company>Gwayva</Company>
+    <Product>CoreConcerns Caching</Product>
+    <Description>A .NET library for caching concerns as part of the CoreConcerns suite.</Description>
+    <PackageTags>dotnet; caching</PackageTags>
+    <RepositoryUrl>https://github.com/AnderCelsius/CoreConcerns</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Initial release of CoreConcerns Caching module.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="StackExchange.Redis" Version="2.7.10" />
+  </ItemGroup>
+
+</Project>

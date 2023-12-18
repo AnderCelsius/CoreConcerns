@@ -1,5 +1,5 @@
+using CoreConcerns.Caching.Extensions;
 using CoreConcerns.Example.Services;
-using CoreConcerns.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
