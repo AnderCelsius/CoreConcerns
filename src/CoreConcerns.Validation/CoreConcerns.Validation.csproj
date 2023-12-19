@@ -4,6 +4,19 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>CoreConcerns.Validation</AssemblyName>
+    <RootNamespace>CoreConcerns.Validation</RootNamespace>
+    <PackageId>CoreConcerns.Validation</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Obinna Anderson Asiegbulam</Authors>
+    <Product>CoreConcerns Validation</Product>
+    <Description>Validation library for .NET applications, based on FluentValidation.</Description>
+    <PackageTags>dotnet;.NET;Validation;FluentValidation;DataAnnotation</PackageTags>
+    <RepositoryUrl>https://github.com/AnderCelsius/CoreConcerns/tree/master/src/CoreConcerns.Validation</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReleaseNotes>Initial release of CoreConcerns Validation module.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +25,7 @@
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
 </Project>
