@@ -1,0 +1,39 @@
+name: .NET Core CI with Code Coverage
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'src/CoreConcerns.Validation/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'src/CoreConcerns.Validation/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.1.x'
+
+    - name: Install dependencies
+      run: dotnet restore ./src/CoreConcerns.Validation/CoreConcerns.Validation.csproj
+      
+    - name: Build
+      run: dotnet build ./src/CoreConcerns.Validation/CoreConcerns.Validation.csproj --configuration Release --no-restore
+
+    - name: Test with code coverage
+      run: |
+        dotnet tool install --global coverlet.console
+        coverlet ./tests/CoreConcerns.Validation.Tests/bin/Release/netcoreapp3.1/CoreConcerns.Validation.Tests.dll --target "dotnet" --targetargs "test ./tests/CoreConcerns.Validation.Tests/CoreConcerns.Validation.Tests.csproj --no-build" --format lcov
+      env:
+        COVERLET_OUTPUT: lcov.info # This is the output file
+
+
