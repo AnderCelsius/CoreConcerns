@@ -63,6 +63,14 @@ public static class ValidatorSettings
     public static IRuleBuilderOptions<T, string> PhoneNumber<T>(
         this IRuleBuilder<T, string> ruleBuilder, string? countryCode = null, string? customPattern = null)
     {
+        //var pattern = customPattern ?? DefaultPhoneNumberPattern;
+
+        //return ruleBuilder.Must(phone => IsValidPhoneNumber(phone, countryCode, pattern))
+        //    .WithMessage(phone =>
+        //        countryCode != null
+        //            ? $"Phone number must match the country code '{countryCode}' and the specified format."
+        //            : "Invalid phone number format.");
+
         var pattern = customPattern ?? DefaultPhoneNumberPattern;
 
         return ruleBuilder.Must(phone => IsValidPhoneNumber(phone, countryCode, pattern))
@@ -83,6 +91,189 @@ public static class ValidatorSettings
     {
         return ruleBuilder.Must(IsValidNigerianPhoneNumber)
             .WithMessage("Invalid Nigerian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Kenyan format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> KenyanPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidKenyanPhoneNumber)
+            .WithMessage("Invalid Kenyan phone number format.");
+    }
+
+
+    /// <summary>
+    /// Validates if a phone number is in South African format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> SouthAfricanPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidSouthAfricanPhoneNumber)
+            .WithMessage("Invalid South African phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Ghanaian format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> GhanaianPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidGhanaianPhoneNumber)
+            .WithMessage("Invalid Ghanaian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Egyptian format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> EgyptianPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidEgyptianPhoneNumber)
+            .WithMessage("Invalid Egyptian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Moroccan format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> MoroccanPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidMoroccanPhoneNumber)
+            .WithMessage("Invalid Moroccan phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Senegalese format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> SenegalesePhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidSenegalesePhoneNumber)
+            .WithMessage("Invalid Senegalese phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Tanzanian format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> TanzanianPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidTanzanianPhoneNumber)
+            .WithMessage("Invalid Tanzanian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Ethiopian format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> EthiopianPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidEthiopianPhoneNumber)
+            .WithMessage("Invalid Ethiopian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Ivorian format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> IvorianPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidIvorianPhoneNumber)
+            .WithMessage("Invalid Ivorian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Ugandan format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> UgandanPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidUgandanPhoneNumber)
+            .WithMessage("Invalid Ugandan phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Cameroonian format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> CameroonianPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidCameroonianPhoneNumber)
+            .WithMessage("Invalid Cameroonian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Rwandan format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> RwandanPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidRwandanPhoneNumber)
+            .WithMessage("Invalid Rwandan phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Algerian format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> AlgerianPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidAlgerianPhoneNumber)
+            .WithMessage("Invalid Algerian phone number format.");
+    }
+
+    /// <summary>
+    /// Validates if a phone number is in Zimbabwean format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the phone number validation.</returns>
+    public static IRuleBuilderOptions<T, string> ZimbabweanPhoneNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Must(IsValidZimbabweanPhoneNumber)
+            .WithMessage("Invalid Zimbabwean phone number format.");
     }
 
     /// <summary>
@@ -435,24 +626,55 @@ public static class ValidatorSettings
             .WithMessage("Invalid URL slug format.");
     }
 
+    /// <summary>
+    /// Validates if a string is in Nigerian NUBAN (Nigerian Uniform Bank Account Number) format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the Nigerian NUBAN validation.</returns>
+    public static IRuleBuilderOptions<T, string> NigerianNUBAN<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        const string pattern = @"^\d{10}$"; // NUBAN is a 10-digit number
+
+        return ruleBuilder.Must(nuban => Regex.IsMatch(nuban, pattern))
+            .WithMessage("Invalid Nigerian NUBAN format.");
+    }
+
+    /// <summary>
+    /// Validates if a string is in Nigerian passport number format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the Nigerian passport number validation.</returns>
+    public static IRuleBuilderOptions<T, string> NigerianPassportNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        var pattern = @"^[A-Z0-9]{9}$"; // Example format
+
+        return ruleBuilder.Must(number => Regex.IsMatch(number, pattern))
+            .WithMessage("Invalid Nigerian passport number format.");
+    }
+
+    /// <summary>
+    /// Validates if a string is in Ghanaian passport number format.
+    /// </summary>
+    /// <typeparam name="T">The type being validated.</typeparam>
+    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <returns>The rule builder with the Ghanaian passport number validation.</returns>
+    public static IRuleBuilderOptions<T, string> GhanaianPassportNumber<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        var pattern = @"^[G][0-9]{8}$"; // Example format
+
+        return ruleBuilder.Must(number => Regex.IsMatch(number, pattern))
+            .WithMessage("Invalid Ghanaian passport number format.");
+    }
+
+
     #endregion
 
     #region Private Methods
-
-    private static string GetCurrencyFormatRegexPattern(string currencyFormat)
-    {
-        // Escape special characters in the currency format
-        var escapedFormat = Regex.Escape(currencyFormat);
-
-        // Replace placeholders for currency symbol, thousands separator, and decimal separator
-        escapedFormat = escapedFormat
-            .Replace(@"\$\#", @"\$\d{1,3}") // Currency symbol (#)
-            .Replace(@",", @"\,") // Thousands separator
-            .Replace(@"\.", @"\."); // Decimal separator
-
-        // Add anchors to ensure the pattern matches the entire string
-        return $"^{escapedFormat}$";
-    }
 
     private static bool HasValidDecimalScale(decimal value, int scale)
     {
@@ -564,6 +786,90 @@ public static class ValidatorSettings
         return Regex.IsMatch(phone, pattern);
     }
 
+    private static bool IsValidSouthAfricanPhoneNumber(string phone)
+    {
+        // South Africa's international dialing code is +27, and domestic numbers typically start with 0
+        const string pattern = @"^(\+27\d{9})|(0\d{9})$";
+
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidKenyanPhoneNumber(string phone)
+    {
+        return Regex.IsMatch(phone, @"^(\+254)?[7]\d{8}$");
+    }
+
+    private static bool IsValidGhanaianPhoneNumber(string phone)
+    {
+        return Regex.IsMatch(phone, @"^(\+233)?[235]\d{8}$");
+    }
+
+    private static bool IsValidEgyptianPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+20)?[1]\d{9}$"; // Egyptian numbers start with 1 after the country code +20
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidMoroccanPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+212)?[5-9]\d{8}$"; // Moroccan numbers start with 5, 6, 7, 8, or 9 after the country code +212
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidSenegalesePhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+221)?[7]\d{8}$"; // Senegalese numbers start with 7 after the country code +221
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidTanzanianPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+255)?[67]\d{8}$"; // Tanzanian numbers start with 6 or 7 after the country code +255
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidEthiopianPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+251)?[1-59]\d{8}$"; // Ethiopian numbers start with 1, 2, 3, 4, 5, or 9 after the country code +251
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidIvorianPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+225)?[0-9]\d{7}$"; // Ivorian numbers start with any digit after the country code +225
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidUgandanPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+256)?[7]\d{8}$"; // Ugandan numbers start with 7 after the country code +256
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidCameroonianPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+237)?[23678]\d{7}$"; // Cameroonian numbers start with 2, 3, 6, 7, or 8 after the country code +237
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidRwandanPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+250)?[78]\d{7}$"; // Rwandan numbers start with 7 or 8 after the country code +250
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidAlgerianPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+213)?[5-9]\d{8}$"; // Algerian numbers start with 5, 6, 7, 8, or 9 after the country code +213
+        return Regex.IsMatch(phone, pattern);
+    }
+
+    private static bool IsValidZimbabweanPhoneNumber(string phone)
+    {
+        const string pattern = @"^(\+263)?[178]\d{7}$"; // Zimbabwean numbers start with 1, 7, or 8 after the country code +263
+        return Regex.IsMatch(phone, pattern);
+    }
+
     private static bool IsValidEmail(string email, string? domain)
     {
         try
@@ -589,9 +895,9 @@ public static class ValidatorSettings
             return false;
         }
 
-        if (countryCode != null)
+        if (countryCode != null && !phone.StartsWith(countryCode, StringComparison.Ordinal))
         {
-            return phone.StartsWith(countryCode);
+            return false;
         }
 
         if (checkLength)

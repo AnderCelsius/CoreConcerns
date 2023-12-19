@@ -5,6 +5,13 @@ namespace CoreConcerns.Validation.Tests;
 
 public class ValidatorSettingsTests
 {
+    readonly InlineValidator<string> _stringInlineValidator;
+
+    public ValidatorSettingsTests()
+    {
+        _stringInlineValidator = new InlineValidator<string>();
+    }
+
     [Theory]
     [InlineData("John Doe", true)] // Valid name
     [InlineData("Ana-Maria", true)] // Valid compound name
@@ -13,10 +20,9 @@ public class ValidatorSettingsTests
     [InlineData("", false)] // Invalid empty name
     public void HumanName_ShouldValidateCorrectly(string name, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).HumanName();
+        _stringInlineValidator.RuleFor(x => x).HumanName();
 
-        var result = validator.Validate(name);
+        var result = _stringInlineValidator.Validate(name);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -28,10 +34,9 @@ public class ValidatorSettingsTests
     [InlineData("invalid-email", null, false)] // Invalid email format
     public void ValidEmailAddress_ShouldValidateCorrectly(string email, string domain, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).ValidEmailAddress(domain);
+        _stringInlineValidator.RuleFor(x => x).ValidEmailAddress(domain);
 
-        var result = validator.Validate(email);
+        var result = _stringInlineValidator.Validate(email);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -45,10 +50,9 @@ public class ValidatorSettingsTests
     public void PhoneNumber_ShouldValidateCorrectly(string phone, string countryCode, string customPattern,
         bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).PhoneNumber(countryCode, customPattern);
+        _stringInlineValidator.RuleFor(x => x).PhoneNumber(countryCode, customPattern);
 
-        var result = validator.Validate(phone);
+        var result = _stringInlineValidator.Validate(phone);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -60,10 +64,9 @@ public class ValidatorSettingsTests
     [InlineData("", false)] // Invalid - empty string
     public void MustBeValidHttpsUrl_ShouldValidateCorrectly(string url, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).MustBeValidHttpsUrl();
+        _stringInlineValidator.RuleFor(x => x).MustBeValidHttpsUrl();
 
-        var result = validator.Validate(url);
+        var result = _stringInlineValidator.Validate(url);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -91,10 +94,9 @@ public class ValidatorSettingsTests
     [InlineData("080123", false)] // Invalid - too short
     public void NigerianPhoneNumber_ShouldValidateCorrectly(string phone, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).NigerianPhoneNumber();
+        _stringInlineValidator.RuleFor(x => x).NigerianPhoneNumber();
 
-        var result = validator.Validate(phone);
+        var result = _stringInlineValidator.Validate(phone);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -108,10 +110,9 @@ public class ValidatorSettingsTests
     public void CustomPhoneNumber_ShouldValidateCorrectly(string phone, string countryCode, int length,
         bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).CustomPhoneNumber(countryCode, length);
+        _stringInlineValidator.RuleFor(x => x).CustomPhoneNumber(countryCode, length);
 
-        var result = validator.Validate(phone);
+        var result = _stringInlineValidator.Validate(phone);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -137,10 +138,9 @@ public class ValidatorSettingsTests
     [InlineData("Tab\tSpace", false)] // Invalid - contains a tab
     public void NoWhiteSpace_ShouldValidateCorrectly(string input, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).NoWhiteSpace();
+        _stringInlineValidator.RuleFor(x => x).NoWhiteSpace();
 
-        var result = validator.Validate(input);
+        var result = _stringInlineValidator.Validate(input);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -191,10 +191,9 @@ public class ValidatorSettingsTests
     [InlineData("abcde", @"^\d+$", false)] // Does not match numeric pattern
     public void RegexMatch_ShouldValidateCorrectly(string input, string pattern, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).RegexMatch(pattern);
+        _stringInlineValidator.RuleFor(x => x).RegexMatch(pattern);
 
-        var result = validator.Validate(input);
+        var result = _stringInlineValidator.Validate(input);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -265,10 +264,9 @@ public class ValidatorSettingsTests
     public void CurrencyFormat_ShouldValidateCorrectly(string input, string cultureName, bool expectedIsValid)
     {
         var cultureInfo = new CultureInfo(cultureName);
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).CurrencyFormat(cultureInfo);
+        _stringInlineValidator.RuleFor(x => x).CurrencyFormat(cultureInfo);
 
-        var result = validator.Validate(input);
+        var result = _stringInlineValidator.Validate(input);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -296,10 +294,9 @@ public class ValidatorSettingsTests
     [InlineData("file name.txt", false)] // Invalid - contains spaces
     public void FileName_ShouldValidateCorrectly(string input, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).FileName();
+        _stringInlineValidator.RuleFor(x => x).FileName();
 
-        var result = validator.Validate(input);
+        var result = _stringInlineValidator.Validate(input);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
@@ -324,11 +321,72 @@ public class ValidatorSettingsTests
     [InlineData("Invalid URL Slug", false)] // Invalid - contains spaces and uppercase letters
     public void UrlSlug_ShouldValidateCorrectly(string input, bool expectedIsValid)
     {
-        var validator = new InlineValidator<string>();
-        validator.RuleFor(x => x).UrlSlug();
+        _stringInlineValidator.RuleFor(x => x).UrlSlug();
 
-        var result = validator.Validate(input);
+        var result = _stringInlineValidator.Validate(input);
 
         Assert.Equal(expectedIsValid, result.IsValid);
     }
+
+    [Theory]
+    [InlineData("+254701234567", true)] // Valid Kenyan phone number
+    [InlineData("+254791234567", true)] // Another valid Kenyan phone number
+    [InlineData("0712345678", false)] // Invalid Kenyan phone number (missing country code)
+    [InlineData("254712345678", false)] // Invalid Kenyan phone number (missing plus sign)
+    [InlineData("+254123456789", false)] // Invalid Kenyan phone number (too long)
+    public void KenyanPhoneNumber_ShouldValidateCorrectly(string phoneNumber, bool expectedIsValid)
+    {
+        _stringInlineValidator.RuleFor(x => x).KenyanPhoneNumber();
+
+        var result = _stringInlineValidator.Validate(phoneNumber);
+
+        Assert.Equal(expectedIsValid, result.IsValid);
+    }
+
+    [Theory]
+    [InlineData("+233201234567", true)] // Valid Ghanaian phone number
+    [InlineData("+233271234567", true)] // Another valid Ghanaian phone number
+    [InlineData("0312345678", false)] // Invalid Ghanaian phone number (missing country code)
+    [InlineData("233312345678", false)] // Invalid Ghanaian phone number (missing plus sign)
+    [InlineData("+2331234567890", false)] // Invalid Ghanaian phone number (too long)]
+    public void GhanaianPhoneNumber_ShouldValidateCorrectly(string phoneNumber, bool expectedIsValid)
+    {
+        _stringInlineValidator.RuleFor(x => x).GhanaianPhoneNumber();
+
+        var result = _stringInlineValidator.Validate(phoneNumber);
+
+        Assert.Equal(expectedIsValid, result.IsValid);
+    }
+
+    [Theory]
+    [InlineData("+201234567890", true)] // Valid Egyptian phone number
+    [InlineData("+202123456789", false)] // Invalid Egyptian phone number
+    [InlineData("0123456789", false)] // Invalid Egyptian phone number (missing country code)
+    [InlineData("20234567890", false)] // Invalid Egyptian phone number (missing plus sign)
+    [InlineData("+20123456789012", false)] // Invalid Egyptian phone number (too long)
+    public void EgyptianPhoneNumber_ShouldValidateCorrectly(string phoneNumber, bool expectedIsValid)
+    {
+        _stringInlineValidator.RuleFor(x => x).EgyptianPhoneNumber();
+
+        var result = _stringInlineValidator.Validate(phoneNumber);
+
+        Assert.Equal(expectedIsValid, result.IsValid);
+    }
+
+
+    [Theory]
+    [InlineData("+33123456789", true)] // Valid French phone number
+    [InlineData("+332123456789", false)] // Invalid French phone number
+    [InlineData("0123456789", false)] // Invalid French phone number (missing country code)
+    [InlineData("331234567890", false)] // Invalid French phone number (missing plus sign)
+    [InlineData("+3312345678901", false)] // Invalid French phone number (too long)
+    public void FrenchPhoneNumber_ShouldValidateCorrectly(string phoneNumber, bool expectedIsValid)
+    {
+        _stringInlineValidator.RuleFor(x => x).FrenchPhoneNumber();
+
+        var result = _stringInlineValidator.Validate(phoneNumber);
+
+        Assert.Equal(expectedIsValid, result.IsValid);
+    }
+
 }
