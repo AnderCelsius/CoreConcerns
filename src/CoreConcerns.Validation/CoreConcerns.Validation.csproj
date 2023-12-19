@@ -7,17 +7,31 @@
     <AssemblyName>CoreConcerns.Validation</AssemblyName>
     <RootNamespace>CoreConcerns.Validation</RootNamespace>
     <PackageId>CoreConcerns.Validation</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Obinna Anderson Asiegbulam</Authors>
     <Product>CoreConcerns Validation</Product>
     <Description>Validation library for .NET applications, based on FluentValidation.</Description>
     <PackageTags>dotnet;.NET;Validation;FluentValidation;DataAnnotation</PackageTags>
+
+    <!-- Repository information -->
     <RepositoryUrl>https://github.com/AnderCelsius/CoreConcerns/tree/master/src/CoreConcerns.Validation</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>Initial release of CoreConcerns Validation module.</PackageReleaseNotes>
+
+    <!-- Readme file -->
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- License information -->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Include README.md in the NuGet package -->
+    <None Include="README.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />

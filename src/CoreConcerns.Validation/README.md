@@ -1,80 +1,79 @@
-Certainly! Below is a README template that you can use for both GitHub and NuGet.org for your `CoreConcerns.Validation` library. It provides an overview, installation instructions, examples of usage, and contribution guidelines. Make sure to fill in or adjust any sections with `<>` to include the actual content that is relevant to your project.
-
----
-
-# CoreConcerns.Validation
+# CoreConcerns.Validation Readme
 
 ## Overview
-
-`CoreConcerns.Validation` is a comprehensive validation library for .NET, built on top of FluentValidation, designed to simplify the addition of complex validation logic to your applications. It extends FluentValidation with custom validation rules, making it easy to validate phone numbers, email addresses, and other common data formats.
+CoreConcerns.Validation is a comprehensive .NET library offering a suite of validation rules via extension methods, leveraging the FluentValidation framework. This library simplifies the creation of validation rules for various data types and formats, supporting custom and cultural validations, and providing a streamlined approach to enforcing business rules.
 
 ## Features
+- Extensive validation methods for strings, numbers, dates, and more.
+- Support for phone numbers from various countries with customization options.
+- Email validation with domain-specific checks.
+- Customizable regex pattern matching.
+- Culture-specific currency format validation.
+- Unique list checks, boolean value checks, and URL validation.
+- Passport number format validation for multiple countries.
+- Latitude and longitude range validation.
 
-- Validate phone numbers with country-specific formats.
-- Enforce email addresses to conform to specific domains.
-- Extend FluentValidation with more complex custom rules.
+## Getting Started
+To get started with CoreConcerns.Validation, follow these steps:
 
-## Installation
+1. Install the package using NuGet:
+    ```
+    dotnet add package CoreConcerns.Validation
+    ```
+2. Add `using CoreConcerns.Validation;` to your C# file.
 
-Install `CoreConcerns.Validation` using NuGet:
-
-```bash
-dotnet add package CoreConcerns.Validation
-```
-
-Or via the NuGet package manager console:
-
-```powershell
-Install-Package CoreConcerns.Validation
-```
-
-## Usage
-
-Here's how to implement custom validation for unique country phone numbers and emails with a specified domain:
+3. Implement validation rules using the extension methods provided by the library. Here's an example of a validator class:
 
 ```csharp
-public class MyValidator : AbstractValidator<MyModel>
+using FluentValidation;
+using CoreConcerns.Validation;
+
+public class PersonValidator : AbstractValidator<Person>
 {
-    public MyValidator()
+    public PersonValidator()
     {
-        RuleFor(x => x.PhoneNumber).NigerianPhoneNumber();
-        RuleFor(x => x.Email).ValidEmailAddress("example.com");
-        // Additional rules...
+        RuleFor(p => p.Name).HumanName();
+        RuleFor(p => p.Email).ValidEmailAddress("example.com");
+        RuleFor(p => p.PhoneNumber).NigerianPhoneNumber();
+        RuleFor(p => p.PassportNumber).NigerianPassportNumber();
+        // Add more rules as needed
     }
 }
 ```
 
-## Examples
+## Documentation
+The following is a list of key validation extension methods and their purpose:
 
-### Validate a Nigerian Phone Number
+- `HumanName`: Validates a human name with configurable length and character restrictions.
+- `ValidEmailAddress`: Validates an email address, with an optional check against a specific domain.
+- `PhoneNumber`: Validates a general phone number using a customizable pattern.
+- `NigerianPhoneNumber`, `KenyanPhoneNumber`, etc.: Validates phone numbers specific to a country.
+- `CurrencyFormat`: Validates currency format according to the provided `CultureInfo`.
+- `MustBeValidHttpsUrl`: Checks if a string is a valid HTTPS URL.
+- `CountryPhoneCode`: Validates country phone codes.
+- `RegexMatch`: Matches a string against a provided regex pattern.
+- `IsTrue`, `IsFalse`: Validates boolean values.
+- `IsDatePast`, `IsDateFuture`: Validates date values against the current date.
+- `DecimalScale`: Validates that a decimal number does not exceed a specified number of decimal places.
+- `UniqueList`: Ensures all elements in a list are unique.
+- `Age`, `AgeRange`: Validates ages against specific criteria.
+- `LatitudeLongitude`: Validates geographical coordinates within specified ranges.
+- `UrlSlug`: Validates that a string is a suitable URL slug.
+- `NigerianNUBAN`: Validates Nigerian Uniform Bank Account Numbers.
 
-```csharp
-public class UserValidator : AbstractValidator<User>
-{
-    public UserValidator()
-    {
-        RuleFor(user => user.PhoneNumber).NigerianPhoneNumber();
-    }
-}
-```
+## Best Practices
+When using CoreConcerns.Validation, consider the following best practices:
 
-### Validate an Email Address with a Specific Domain
-
-```csharp
-public class CustomerValidator : AbstractValidator<Customer>
-{
-    public CustomerValidator()
-    {
-        RuleFor(customer => customer.Email).ValidEmailAddress("mydomain.com");
-    }
-}
-```
+- Ensure to handle validation failures gracefully, providing clear feedback to users.
+- Regularly update the validation patterns to match the evolving formats.
+- Use culture-specific validations where appropriate to accommodate internationalization.
+- Customize validation rules to align with specific business logic and requirements.
 
 ## Contributing
-
-Contributions to `CoreConcerns.Validation` are welcome! If you have suggestions or improvements, please submit an issue or pull request on GitHub.
+Contributions to CoreConcerns.Validation are welcome. Please adhere to the contributing guidelines outlined in the repository.
 
 ## License
+CoreConcerns.Validation is open-sourced software licensed under the MIT license.
 
-`CoreConcerns.Validation` is licensed under the MIT License. See the `LICENSE` file in the GitHub repository for more details.
-
+## Support
+If you encounter any issues or have questions, please file an issue on the GitHub repository.
