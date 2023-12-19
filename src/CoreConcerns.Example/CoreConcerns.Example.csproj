@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoreConcerns.Caching\CoreConcerns.Caching.csproj" />
     <ProjectReference Include="..\CoreConcerns\CoreConcerns.Caching.csproj" />
   </ItemGroup>
 

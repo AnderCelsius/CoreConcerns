@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace CoreConcerns.Validation;
@@ -163,13 +164,21 @@ public static class ValidatorSettings
     }
 
     /// <summary>
-    /// Validates if a phone number is in custom format.
+    /// Validates whether a phone number is in a custom format.
     /// </summary>
     /// <typeparam name="T">The type being validated.</typeparam>
-    /// <param name="ruleBuilder">The rule builder.</param>
+    /// <param name="ruleBuilder">The rule builder used to configure validation rules.</param>
     /// <param name="countryCode">The custom country code to prepend to the phone number (optional).</param>
     /// <param name="length">The expected length of the phone number (default is 10).</param>
-    /// <returns>The rule builder with the custom phone number validation.</returns>
+    /// <returns>
+    ///   The rule builder with the custom phone number validation added.
+    /// </returns>
+    /// <remarks>
+    /// This method allows you to define custom validation rules for phone numbers with an optional
+    /// custom country code and a specified length. The phone number is considered valid if it matches
+    /// the expected format, which includes the optional country code and the specified length.
+    /// If the phone number is not in the expected format, a validation error message is generated.
+    /// </remarks>
     public static IRuleBuilderOptions<T, string> CustomPhoneNumber<T>(
         this IRuleBuilder<T, string> ruleBuilder, string countryCode = "", int length = 10)
     {
@@ -353,22 +362,17 @@ public static class ValidatorSettings
     }
 
     /// <summary>
-    /// Validates that a string represents a valid currency amount with a specified format.
+    /// 
     /// </summary>
-    /// <typeparam name="T">The type being validated.</typeparam>
-    /// <param name="ruleBuilder">The rule builder.</param>
-    /// <param name="currencyFormat">The expected currency format (e.g., "$#,##0.00").</param>
-    /// <returns>The rule builder with the currency format validation.</returns>
+    /// <param name="ruleBuilder"></param>
+    /// <param name="cultureInfo"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public static IRuleBuilderOptions<T, string> CurrencyFormat<T>(
-        this IRuleBuilder<T, string> ruleBuilder, string currencyFormat)
+        this IRuleBuilder<T, string> ruleBuilder, CultureInfo cultureInfo)
     {
-        // Implement currency format validation logic based on the provided format.
-        // You can use regular expressions or custom validation code here.
-
-        // Example:
-        string pattern = GetCurrencyFormatRegexPattern(currencyFormat);
-
-        return ruleBuilder.Matches(pattern).WithMessage($"Invalid currency format. Expected format: {currencyFormat}");
+        return ruleBuilder.Must(value => IsValidCurrencyFormat(value, cultureInfo))
+            .WithMessage(value => $"Invalid currency format. Expected format for '{cultureInfo.Name}' culture.");
     }
 
     /// <summary>
@@ -394,7 +398,8 @@ public static class ValidatorSettings
     public static IRuleBuilderOptions<T, string> FileName<T>(
         this IRuleBuilder<T, string> ruleBuilder)
     {
-        return ruleBuilder.Matches(@"^[a-zA-Z0-9\-_]+$")
+        // Allow a period for file extension, but not at the start or end of the filename
+        return ruleBuilder.Matches(@"^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*$")
             .WithMessage("File name contains invalid characters.");
     }
 
@@ -476,10 +481,17 @@ public static class ValidatorSettings
 
     private static bool IsValidCustomPhoneNumber(string phone, string countryCode, int length)
     {
-        // Constructing the regex pattern based on country code and length
-        var pattern = $@"^{countryCode}\d{{{length}}}$";
+        // Check if the phone number starts with the country code
+        if (!string.IsNullOrEmpty(countryCode) && !phone.StartsWith(countryCode))
+        {
+            return false;
+        }
 
-        return Regex.IsMatch(phone, pattern);
+        // Remove country code from the phone number for length validation
+        var phoneNumberWithoutCountryCode = !string.IsNullOrWhiteSpace(countryCode) ? phone.Replace(countryCode, "") : phone;
+
+        // Validate the length of the phone number without the country code
+        return Regex.IsMatch(phoneNumberWithoutCountryCode, $@"^\d{{{length}}}$");
     }
 
     private static string PrependPlusSign(string countryCode)
@@ -547,7 +559,7 @@ public static class ValidatorSettings
     private static bool IsValidNigerianPhoneNumber(string phone)
     {
         // Regex pattern for validating Nigerian phone number with or without country code
-        var pattern = @"^(\+234)?[789]\d{9}$";
+        var pattern = @"^(\+234[789]\d{9})|(0[789]\d{9})$";
 
         return Regex.IsMatch(phone, pattern);
     }
@@ -570,7 +582,7 @@ public static class ValidatorSettings
         }
     }
 
-    private static bool IsValidPhoneNumber(string phone, string? countryCode, string pattern)
+    private static bool IsValidPhoneNumber(string phone, string? countryCode, string pattern, bool checkLength = true)
     {
         if (!Regex.IsMatch(phone, pattern))
         {
@@ -582,7 +594,65 @@ public static class ValidatorSettings
             return phone.StartsWith(countryCode);
         }
 
+        if (checkLength)
+        {
+            // E.164 format length check - typically 8 to 15 digits
+            int lengthWithoutCountryCode = phone.StartsWith("+") ? phone.Length - countryCode?.Length ?? 1 : phone.Length;
+            if (lengthWithoutCountryCode < 8 || lengthWithoutCountryCode > 15)
+            {
+                return false;
+            }
+        }
+
         return true;
+    }
+
+    private static bool IsValidCurrencyFormat(string value, CultureInfo cultureInfo)
+    {
+        //if (string.IsNullOrWhiteSpace(value))
+        //    return false;
+
+        //if (decimal.TryParse(value, NumberStyles.Currency, cultureInfo, out _))
+        //{
+        //    return true;
+        //}
+
+        //return false;
+
+        //if (string.IsNullOrWhiteSpace(value))
+        //    return false;
+
+        //// Check if the value starts with the currency symbol for the culture
+        //if (!value.StartsWith(cultureInfo.NumberFormat.CurrencySymbol))
+        //    return false;
+
+        //// Try to parse the string as a currency value using the provided CultureInfo
+        //if (decimal.TryParse(value, NumberStyles.Currency, cultureInfo, out _))
+        //{
+        //    return true;
+        //}
+
+        //return false;
+
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        // Remove the currency symbol for the sake of comparison
+        var justNumber = value.Replace(cultureInfo.NumberFormat.CurrencySymbol, "").Trim();
+
+        // Try to parse the string as a currency value using the provided CultureInfo
+        if (decimal.TryParse(justNumber, NumberStyles.Currency, cultureInfo, out _))
+        {
+            // Additional check to ensure the currency symbol is in the correct position
+            if (cultureInfo.NumberFormat.CurrencyPositivePattern == 3 && !value.EndsWith(cultureInfo.NumberFormat.CurrencySymbol))
+                return false;
+            if (cultureInfo.NumberFormat.CurrencyPositivePattern != 3 && !value.StartsWith(cultureInfo.NumberFormat.CurrencySymbol))
+                return false;
+
+            return true;
+        }
+
+        return false;
     }
 
     #endregion
